@@ -1,33 +1,33 @@
-# Résilience Agri-Togo - Dashboard analytique
+# 🌾 Résilience Agri-Togo - Dashboard analytique
 
 Identifier les zones du Togo où les infrastructures agricoles (élevage, eau, pisciculture, abattoirs) soutiennent réellement l'économie locale, et celles où de nouveaux investissements seraient les plus pertinents.
 
 **Data Challenge Agriculture - Défi 2** organisé par Togo AI Lab (deadline : 06 juillet 2026).
 
-**Dashboard en ligne :** [togo-agri-resilience.streamlit.app](https://togo-agri-resilience.streamlit.app/)
+🔗 **Dashboard en ligne :** [togo-agri-resilience.streamlit.app](https://togo-agri-resilience.streamlit.app/)
 
 ---
 
-## L'Indice de Résilience Agricole Territoriale (IRAT)
+## 🧭 L'Indice de Résilience Agricole Territoriale (IRAT)
 
 Indice composite calculé par canton, de 0 (fragile) à 1 (résilient) :
 
 | Composante | Poids | Mesure |
 |---|---|---|
-| Accès à l'eau | 35 % | Retenues collinaires + digues et petits barrages |
-| Proximité abattoir | 25 % | Distance du canton à l'abattoir le plus proche (haversine) |
-| Diversification | 20 % | Présence de zones de pisciculture |
-| Encadrement | 20 % | Infrastructures d'eau rapportées au nombre d'élevages |
+|  Accès à l'eau | 35 % | Retenues collinaires + digues et petits barrages |
+|  Proximité abattoir | 25 % | Distance du canton à l'abattoir le plus proche (haversine) |
+|  Diversification | 20 % | Présence de zones de pisciculture |
+|  Encadrement | 20 % | Infrastructures d'eau rapportées au nombre d'élevages |
 
 **Score de priorité d'investissement** = intensité d'activité d'élevage x déficit de résilience (1 - IRAT). Il cible les cantons où l'activité économique existe mais reste fragilisée par le manque d'infrastructures.
 
-### Résultats clés
+### 📊 Résultats clés
 
 - **363 cantons analysés** : 209 vulnérables, 136 intermédiaires, 18 résilients
 - Distance médiane à un abattoir : **15,2 km**
 - Seulement **36 abattoirs** pour plus de 3 000 établissements d'élevage
 
-## Structure du projet
+## 📁 Structure du projet
 
 ```
 AGRI_DASHBOARD/
@@ -49,30 +49,30 @@ AGRI_DASHBOARD/
 +-- README.md
 ```
 
-## Les 6 onglets du dashboard
+## 🗂️ Les 6 onglets du dashboard
 
-1. **Vue d'ensemble** - carte générale des infrastructures avec clusters, poids relatifs
-2. **Indice de résilience** - carte IRAT par canton, statuts, cantons vulnérables
-3. **Accès à l'eau** - infrastructures par région, croisement activité/eau, usages des retenues
-4. **Élevage & abattoirs** - distances aux abattoirs, catégories d'élevage
-5. **Économie agricole** - séries Banque mondiale : valeur ajoutée agricole, rendements céréaliers, indices de production, terres agricoles, population rurale et emploi agricole (1990-2025)
-6. **Zones prioritaires** - Top 10 des cantons pour investissements + recommandations
+1. 🗺️ **Vue d'ensemble** - carte générale des infrastructures avec clusters, poids relatifs
+2. 🧭 **Indice de résilience** - carte IRAT par canton, statuts, cantons vulnérables
+3. 💧 **Accès à l'eau** - infrastructures par région, croisement activité/eau, usages des retenues
+4. 🥩 **Élevage & abattoirs** - distances aux abattoirs, catégories d'élevage
+5. 📈 **Économie agricole** - séries Banque mondiale : valeur ajoutée agricole, rendements céréaliers, indices de production, terres agricoles, population rurale et emploi agricole (1990-2025)
+6. 🎯 **Zones prioritaires** - Top 10 des cantons pour investissements + recommandations
 
-## Sources de données
+## 📚 Sources de données
 
 - [geodata.gouv.tg](https://geodata.gouv.tg/) / [opendata.gouv.tg](https://opendata.gouv.tg/) : élevage, abattoirs, pisciculture, retenues d'eau, digues et barrages
 - [Banque mondiale](https://donnees.banquemondiale.org/) : valeur ajoutée agricole (% PIB, croissance, USD constants 2015, par travailleur)
 
 Les géométries WKT (POINT, POLYGON, MULTIPOLYGON, MULTILINESTRING) sont parsées par expressions régulières Python, sans GeoPandas.
 
-## Installation et lancement
+## ⚙️ Installation et lancement
 
 ```bash
 pip install -r requirements.txt
 streamlit run app.py
 ```
 
-## Auteur
+## ✍️ Auteur
 
 **OURO-TAGBA Bastou**
 Data Challenge Agriculture - Défi 2 - Togo AI Lab, juillet 2026
