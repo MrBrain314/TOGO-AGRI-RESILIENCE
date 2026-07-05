@@ -542,7 +542,44 @@ with tabs[1]:
         "dist_abattoir_km": "Dist. abattoir (km)",
     })
     vuln["Dist. abattoir (km)"] = vuln["Dist. abattoir (km)"].round(1)
-    st.dataframe(vuln, use_container_width=True, hide_index=True)
+
+    def color_irat(v):
+        if pd.isna(v):
+            return "background-color:#FDECEA;color:#C0392B"
+        if v < 0.10:
+            return "background-color:#FDECEA;color:#C0392B;font-weight:bold"
+        if v < 0.25:
+            return "background-color:#FCF3CF;color:#7D6608"
+        return "background-color:#E8F6EC;color:#0B5D26"
+
+    def color_dist(v):
+        if pd.isna(v):
+            return "background-color:#FDECEA;color:#C0392B"
+        if v > 40:
+            return "background-color:#FDECEA;color:#C0392B;font-weight:bold"
+        if v > 20:
+            return "background-color:#FCF3CF;color:#7D6608"
+        return "background-color:#E8F6EC;color:#0B5D26"
+
+    styled = (vuln.reset_index(drop=True).style
+              .map(color_irat, subset=["IRAT"])
+              .map(color_dist, subset=["Dist. abattoir (km)"])
+              .format({"IRAT": "{:.3f}", "Dist. abattoir (km)": "{:.1f}",
+                       "Élevages": "{:.0f}", "Retenues": "{:.0f}", "Digues": "{:.0f}"},
+                      na_rep="Aucun point")
+              .set_table_styles([
+                  {"selector": "", "props": [("width", "100%"), ("border-collapse", "collapse"),
+                                             ("background", "#FFFFFF"), ("border-radius", "12px")]},
+                  {"selector": "th",
+                   "props": [("background-color", "#0B5D26"), ("color", "#F2C500"),
+                             ("font-weight", "700"), ("text-align", "left"),
+                             ("padding", "9px 14px")]},
+                  {"selector": "td",
+                   "props": [("padding", "8px 14px"), ("border-bottom", "1px solid #E5E7EB"),
+                             ("color", "#1C1C1C")]},
+              ])
+              .hide(axis="index"))
+    st.markdown(styled.to_html(), unsafe_allow_html=True)
 
 # ================= TAB 3 : ACCES A L'EAU =================
 with tabs[2]:
