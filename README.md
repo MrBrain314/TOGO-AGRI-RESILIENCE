@@ -4,8 +4,12 @@ Identifier les zones du Togo où les infrastructures agricoles (élevage, eau, p
 
 **Data Challenge Agriculture - Défi 2** organisé par Togo AI Lab (deadline : 06 juillet 2026).
 
-🔗 **Dashboard en ligne :** [togo-agri-resilience.streamlit.app](https://togo-agri-resilience.streamlit.app/)
 
+## 🔗 Dashboard en ligne
+
+[![Démo du dashboard](images/DASHBOARD.png)](https://togo-agri-resilience.streamlit.app/)
+
+> Cliquer sur l'image pour voir le Dashboard
 ---
 
 ## 🧭 L'Indice de Résilience Agricole Territoriale (IRAT)
@@ -46,6 +50,7 @@ AGRI_DASHBOARD/
 |   +-- va_agricole_par_travailleur.csv    (par travailleur, 1991-2025)
 +-- images/
 |   +-- LOGO.jpg
+|   +-- DASHBOARD.png            # Miniature de la vidéo de démo
 +-- Rapport d'Analyse/
 |   +-- Presentation_Defi2.pptx        # Présentation des analyses et résultats
 +-- README.md
@@ -67,7 +72,7 @@ AGRI_DASHBOARD/
 
 Les géométries WKT (POINT, POLYGON, MULTIPOLYGON, MULTILINESTRING) sont parsées par expressions régulières Python, sans GeoPandas.
 
-## ⚙️ Installation et lancement
+##  Installation et lancement
 
 ```bash
 pip install -r requirements.txt
