@@ -46,6 +46,8 @@ AGRI_DASHBOARD/
 |   +-- va_agricole_par_travailleur.csv    (par travailleur, 1991-2025)
 +-- images/
 |   +-- LOGO.jpg
++-- Rapport d'Analyse/
+|   +-- Presentation_Defi2.pptx        # Présentation des analyses et résultats
 +-- README.md
 ```
 
