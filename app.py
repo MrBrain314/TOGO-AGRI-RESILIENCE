@@ -793,7 +793,23 @@ with tabs[5]:
             "canton_nom_bdd": "Canton", "prefecture_nom_bdd": "Préfecture",
             "region_nom_bdd": "Région", "n_elevage": "Élevages",
             "score_priorite": "Priorité"})
-        st.dataframe(t, use_container_width=True, hide_index=True, height=397)
+        t_styled = (t.reset_index(drop=True).style
+                    .map(lambda v: "color:#C0392B;font-weight:bold", subset=["Priorité"])
+                    .format({"IRAT": "{:.3f}", "Priorité": "{:.3f}", "Élevages": "{:.0f}"})
+                    .set_table_styles([
+                        {"selector": "", "props": [("width", "100%"), ("border-collapse", "collapse"),
+                                                   ("background", "#FFFFFF"), ("font-size", "13px")]},
+                        {"selector": "th",
+                         "props": [("background-color", "#0B5D26"), ("color", "#F2C500"),
+                                   ("font-weight", "700"), ("text-align", "left"),
+                                   ("padding", "7px 8px"), ("font-size", "12.5px")]},
+                        {"selector": "td",
+                         "props": [("padding", "6px 8px"), ("border-bottom", "1px solid #E5E7EB"),
+                                   ("color", "#1C1C1C")]},
+                    ])
+                    .hide(axis="index"))
+        st.markdown(f"<div style='max-width:100%;overflow-x:auto'>{t_styled.to_html()}</div>",
+                    unsafe_allow_html=True)
     with c2:
         st.markdown("<h4 style='text-align:center'>📍 Localisation des 10 zones<br><span style='margin-left:26px'>prioritaires</span></h4>", unsafe_allow_html=True)
         d = top10.dropna(subset=["lat", "lon"])
