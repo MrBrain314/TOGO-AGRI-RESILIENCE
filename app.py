@@ -14,7 +14,7 @@ import streamlit as st
 import plotly.express as px
 import plotly.graph_objects as go
 import folium
-from folium.plugins import MarkerCluster
+from folium.plugins import MarkerCluster, FastMarkerCluster
 from streamlit_folium import st_folium
 
 # ------------------------------------------------------------------
@@ -432,20 +432,30 @@ with tabs[0]:
         center = [elevage_f["lat"].mean(), elevage_f["lon"].mean()]
     m = folium.Map(location=center, zoom_start=7, tiles="CartoDB positron")
 
-    layers = [
-        (elevage_f.head(1200), "Élevage", C_EMERALD, "paw"),
-        (abattoirs_f, "Abattoirs", C_RED, "cutlery"),
-        (pisci_f, "Pisciculture", C_BLUE, "tint"),
-        (retenues_f.head(600), "Retenues d'eau", "#5DADE2", "tint"),
-        (digues_f.head(400), "Digues & barrages", "#8E7CC3", "road"),
+    # Couches volumineuses : FastMarkerCluster (clustering cote navigateur, tres rapide)
+    fast_layers = [
+        (elevage_f, "Élevage"),
+        (retenues_f, "Retenues d'eau"),
+        (digues_f, "Digues & barrages"),
     ]
-    for df, name, color, icon in layers:
+    for df, name in fast_layers:
+        pts = df.dropna(subset=["lat", "lon"])[["lat", "lon"]].values.tolist()
+        fg = folium.FeatureGroup(name=name)
+        FastMarkerCluster(pts).add_to(fg)
+        fg.add_to(m)
+
+    # Couches legeres : marqueurs individuels avec popup
+    detail_layers = [
+        (abattoirs_f, "Abattoirs", C_RED),
+        (pisci_f, "Pisciculture", C_BLUE),
+    ]
+    for df, name, color in detail_layers:
         fg = folium.FeatureGroup(name=name)
         mc = MarkerCluster()
         for r in df.dropna(subset=["lat", "lon"]).itertuples():
             folium.CircleMarker(
-                [r.lat, r.lon], radius=4, color=color, fill=True,
-                fill_opacity=0.75, weight=1,
+                [r.lat, r.lon], radius=5, color=color, fill=True,
+                fill_opacity=0.85, weight=1,
                 popup=f"{name}<br>{getattr(r, 'prefecture_nom_bdd', '')} / {getattr(r, 'canton_nom_bdd', '')}",
             ).add_to(mc)
         mc.add_to(fg)
