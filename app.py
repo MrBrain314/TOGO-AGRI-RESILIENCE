@@ -341,7 +341,7 @@ canton = build_canton_index(elevage, abattoirs, pisci, retenues, digues)
 with st.sidebar:
     logo_path = os.path.join(BASE_DIR, "images", "LOGO.jpg")
     if os.path.exists(logo_path):
-        cols = st.columns([1, 4, 2])
+        cols = st.columns([1.5, 4, 1.5])
         with cols[1]:
             st.image(logo_path, width=170)
     st.markdown("## Résilience Agri-Togo")
